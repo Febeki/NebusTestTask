@@ -1,0 +1,18 @@
+from sqlalchemy.ext.asyncio import (
+    AsyncEngine,
+    AsyncSession,
+    async_sessionmaker,
+    create_async_engine,
+)
+
+from payments.config import Settings
+
+
+def create_engine(settings: Settings) -> AsyncEngine:
+    """Create one engine per process. The process must dispose it on shutdown."""
+    return create_async_engine(settings.database_url.get_secret_value(), pool_pre_ping=True)
+
+
+def create_session_factory(engine: AsyncEngine) -> async_sessionmaker[AsyncSession]:
+    """Create independent sessions. Callers explicitly own transaction boundaries."""
+    return async_sessionmaker(engine, expire_on_commit=False)
