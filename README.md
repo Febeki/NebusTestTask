@@ -91,5 +91,4 @@ uv run --frozen pytest -q
 и `TEST_RABBITMQ_URL`. Обе тестовые базы нужно предварительно мигрировать через
 `alembic upgrade head`, подставив соответствующий URL в `DATABASE_URL`.
 Без настроек тесты пропускаются. Используйте отдельные базы: тесты outbox/consumer
-удаляют из своей базы платежи и события. Сквозная проверка — `tests/e2e_check.py`
-(в сети Compose с alias `payments-webhook-test`, переменными `API_KEY` и `RABBITMQ_URL`).
+удаляют из своей базы платежи и события.
